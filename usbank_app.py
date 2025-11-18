@@ -40,11 +40,13 @@ US_BANK_CSS = """
         background-color: #0A2640 !important;  /* Dark navy */
         color: #FFFFFF !important;
     }
-
-    [data-testid="stSidebar"] * {
+    /* Only the slider endpoint spans (not tooltips, not labels) */
+        .stSlider div[data-baseweb="slider"] > div + span,
+        .stSlider div[data-baseweb="slider"] > span:last-child 
+    {
         color: #FFFFFF !important;
     }
-
+    
     [data-testid="stSidebar"] button {
         background-color: #0056B3 !important;  /* Primary blue */
         color: #FFFFFF !important;
@@ -285,7 +287,9 @@ def blue_banner(message: str):
 # -----------------------------------------------------------------------------
 # Title & intro
 # -----------------------------------------------------------------------------
+<div style="margin-top:40px;">
 st.title("QID Bank Security Interference Demo")
+</div>
 
 st.markdown(
     """
