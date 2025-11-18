@@ -32,15 +32,20 @@ st.set_page_config(
 # -----------------------------------------------------------------------------
 US_BANK_CSS = """
 <style>
-    /* -------- Sidebar -------- */
+
+    /* ============================
+       U.S. BANK SIDEBAR STYLING
+       ============================ */
     [data-testid="stSidebar"] {
         background-color: #0A2640 !important;  /* Dark navy */
         color: #FFFFFF !important;
     }
+
     [data-testid="stSidebar"] * {
         color: #FFFFFF !important;
     }
 
+    /* Sidebar buttons */
     [data-testid="stSidebar"] button {
         background-color: #0056B3 !important;  /* Primary blue */
         color: #FFFFFF !important;
@@ -51,65 +56,74 @@ US_BANK_CSS = """
     }
     [data-testid="stSidebar"] button:hover {
         background-color: #0072CE !important;
-        color: #FFFFFF !important;
         border-color: #FFFFFF !important;
     }
 
-    /* Sidebar sliders */
+    /* Sliders */
     .stSlider > div > div > div > div {
         background: #0072CE !important;
     }
-    .stSlider > div > div > div:nth-child(3) > div {
-        background: #0056B3 !important;
-        border: 2px solid #FFFFFF !important;
+
+    /* ============================
+       MAIN PAGE BACKGROUND FIX
+       ============================ */
+
+    /* These selectors MUST target Streamlit’s actual layout structure */
+    html, body, [data-testid="stAppViewContainer"], [data-testid="stMain"] {
+        background-color: #EDF2F7 !important;  /* Soft US Bank icy blue-grey */
+        background-image: none !important;
     }
 
-    /* Sidebar radio highlight */
-    .stRadio > label > div[role='radiogroup'] > div[aria-checked='true'] {
-        color: #FFFFFF !important;
-        background-color: #0072CE20 !important;
-        border-left: 3px solid #0072CE !important;
-        padding-left: 8px !important;
-        border-radius: 4px !important;
+    /* Remove Streamlit dark mode influences */
+    body {
+        color: #0A2640 !important;
     }
 
-    /* -------- Main page background -------- */
-    .main > div {
-        background-color: #EDF2FF !important;  /* soft bluish grey */
-    }
-
+    /* Main block-container background */
     .block-container {
+        background-color: #EDF2F7 !important;
         padding-top: 2rem !important;
         padding-bottom: 2rem !important;
     }
 
-    /* Headings */
-    h1, h2, h3, h4 {
-        color: #0A2640 !important;
-        font-weight: 700 !important;
-    }
-
-    /* -------- Section cards -------- */
+    /* ============================
+       CARD SECTION STYLES
+       ============================ */
     .us-section {
         border-radius: 18px;
         padding: 1.75rem 1.75rem 1.5rem 1.75rem;
-        margin-bottom: 1.5rem;
-        box-shadow: 0 18px 40px rgba(10, 38, 64, 0.06);
+        margin-bottom: 2rem;
+        box-shadow: 0 20px 40px rgba(10, 38, 64, 0.06);
     }
 
     .us-section-white {
-        background-color: #FFFFFF;
+        background-color: #FFFFFF !important;
     }
 
     .us-section-grey {
-        background-color: #F5F7FA;
+        background-color: #F5F7FA !important; /* Light US Bank grey */
     }
 
-    /* Accent text */
+    /* ============================
+       TYPOGRAPHY
+       ============================ */
+    h1, h2, h3, h4 {
+        color: #0A2640 !important;  /* US Bank Navy */
+        font-weight: 700 !important;
+    }
+
+    /* Accent text (links/highlights) */
     .us-accent {
-        color: #0056B3 !important;
+        color: #0056B3 !important;  /* US Bank Bright Blue */
         font-weight: 600;
     }
+
+    /* Fraud red accents */
+    .fraud-flag {
+        color: #D00000 !important; /* US Bank Red */
+        font-weight: 700;
+    }
+
 </style>
 """
 st.markdown(US_BANK_CSS, unsafe_allow_html=True)
