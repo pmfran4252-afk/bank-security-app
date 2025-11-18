@@ -545,7 +545,7 @@ if run_qid_btn:
             max_accounts=max_accounts_to_score,
         )
         st.session_state["scores"] = score_df
-    blue_banner("<span style="color:#ffffff;">QID scoring complete.</span>")
+    blue_banner("QID scoring complete.")
 
 score_df = st.session_state.get("scores")
 
