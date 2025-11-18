@@ -40,11 +40,10 @@ US_BANK_CSS = """
         background-color: #0A2640 !important;  /* Dark navy */
         color: #FFFFFF !important;
     }
-    /* Only the slider endpoint spans (not tooltips, not labels) */
-        .stSlider div[data-baseweb="slider"] > div + span,
-        .stSlider div[data-baseweb="slider"] > span:last-child 
-    {
-        color: #FFFFFF !important;
+    /* Only first + last span inside the sidebar slider (min & max) */
+    [data-testid="stSidebar"] .stSlider div[data-baseweb="slider"] > div + span,
+    [data-testid="stSidebar"] .stSlider div[data-baseweb="slider"] > span:last-child {
+    color: #FFFFFF !important;
     }
     
     [data-testid="stSidebar"] button {
@@ -140,7 +139,7 @@ US_BANK_CSS = """
     .st-emotion-cache-ua1rfn h1 {
     margin-top: 40px !important; 
     }
-    
+
     .fraud-pill {
     display: inline-block;
     padding: 0.15rem 0.6rem;
