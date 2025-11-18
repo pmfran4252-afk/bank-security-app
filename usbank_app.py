@@ -28,6 +28,89 @@ st.set_page_config(
     layout="wide",
 )
 
+# ---- U.S. Bank Theme Injection ----
+US_BANK_CSS = """
+<style>
+
+    /* -------- Sidebar Background -------- */
+    [data-testid="stSidebar"] {
+        background-color: #0A2640 !important;  /* Dark Navy */
+        color: #FFFFFF !important;
+    }
+
+    /* Make all sidebar text white */
+    [data-testid="stSidebar"] * {
+        color: #FFFFFF !important;
+    }
+
+    /* -------- Sidebar Buttons -------- */
+    [data-testid="stSidebar"] button {
+        background-color: #0056B3 !important;  /* Primary Blue */
+        color: #FFFFFF !important;
+        border-radius: 6px !important;
+        border: 1px solid #0072CE !important;
+        padding: 0.4rem 0.75rem !important;
+    }
+
+    [data-testid="stSidebar"] button:hover {
+        background-color: #0072CE !important;  /* Hover blue */
+        color: white !important;
+        border-color: #FFFFFF !important;
+    }
+
+    /* -------- Sidebar Selectboxes & Sliders -------- */
+    [data-testid="stSidebar"] select, 
+    [data-testid="stSidebar"] input, 
+    [data-testid="stSidebar"] .stSlider,
+    [data-testid="stSidebar"] .stMultiSelect {
+        color: #FFFFFF !important;
+    }
+
+    /* Slider color */
+    .stSlider > div > div > div > div {
+        background: #0072CE !important;
+    }
+
+    /* Slider thumb */
+    .stSlider > div > div > div:nth-child(3) > div {
+        background: #0056B3 !important;
+        border: 2px solid #FFFFFF !important;
+    }
+
+    /* Radio button highlight */
+    .stRadio > label > div[role='radiogroup'] > div[aria-checked='true'] {
+        color: #FFFFFF !important;
+        background-color: #0072CE20 !important; 
+        border-left: 3px solid #0072CE !important;
+        padding-left: 8px !important;
+        border-radius: 4px !important;
+    }
+
+    /* -------- Main page adjustments (optional but nice) -------- */
+    .main > div {
+        background-color: #F5F7FA !important; /* Off-white bg */
+    }
+
+    .block-container {
+        padding-top: 2rem !important;
+    }
+
+    /* Headers styling */
+    h1, h2, h3, h4 {
+        color: #0A2640 !important; 
+        font-weight: 700 !important;
+    }
+
+    /* Tables with subtle border */
+    table {
+        border: 1px solid #D6DCE5 !important;
+        border-radius: 8px !important;
+    }
+
+</style>
+"""
+st.markdown(US_BANK_CSS, unsafe_allow_html=True)
+
 st.title("QID Bank Security Interference Demo")
 
 st.markdown(
