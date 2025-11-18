@@ -40,12 +40,11 @@ US_BANK_CSS = """
         background-color: #0A2640 !important;  /* Dark navy */
         color: #FFFFFF !important;
     }
-    /* Only first + last span inside the sidebar slider (min & max) */
-    [data-testid="stSidebar"] .stSlider div[data-baseweb="slider"] > div + span,
-    [data-testid="stSidebar"] .stSlider div[data-baseweb="slider"] > span:last-child {
+    
+    [data-testid="stSidebar"] .stSlider div[data-baseweb="slider"] span {
     color: #FFFFFF !important;
     }
-    
+
     [data-testid="stSidebar"] button {
         background-color: #0056B3 !important;  /* Primary blue */
         color: #FFFFFF !important;
