@@ -77,7 +77,9 @@ US_BANK_CSS = """
         background: #0056B3 !important;
         border: 2px solid #FFFFFF !important;
     }
-
+    .stMarkdown {
+    color: #FFFFFF !important;
+    }
     /* Sidebar radio highlight */
     .stRadio > label > div[role='radiogroup'] > div[aria-checked='true'] {
         color: #FFFFFF !important;
@@ -201,6 +203,9 @@ US_BANK_CSS = """
         color: #D00000 !important;  /* Brand red */
         font-weight: 700;
     }
+    .st-emotion-cache-3uj0rx {
+    color: #ffffff !important;
+    }
 
     /* Blue pill for "Label_fraud = 1" */
     .fraud-pill {
@@ -289,7 +294,7 @@ def blue_banner(message: str):
             padding: 0.9rem 1.2rem;
             border-radius: 999px;
             background: #0056B3;
-            color: #FFFFFF !important;
+            color: #ffffff !important;
             font-weight: 500;
             text-align: center;
             box-shadow: 0 12px 30px rgba(0, 86, 179, 0.35);
