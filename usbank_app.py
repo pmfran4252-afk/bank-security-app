@@ -117,6 +117,15 @@ US_BANK_CSS = """
         font-weight: 700 !important;
     }
 
+    /* Metric numbers bright blue */
+    [data-testid="stMetricValue"] {
+        color: #0056B3 !important;  /* bright blue */
+        font-weight: 700 !important;
+    }
+    [data-testid="stMetricLabel"] {
+        color: #0A2640 !important;
+    }
+
     /* ============================
        CARD SECTION STYLES
        ============================ */
@@ -144,6 +153,17 @@ US_BANK_CSS = """
     .fraud-flag {
         color: #D00000 !important;  /* Brand red */
         font-weight: 700;
+    }
+
+    /* Blue pill for "Label_fraud = 1" */
+    .fraud-pill {
+        display: inline-block;
+        padding: 0.15rem 0.6rem;
+        border-radius: 999px;
+        background: #0056B3;
+        color: #FFFFFF;
+        font-size: 0.8rem;
+        font-weight: 600;
     }
 
     /* ============================
@@ -175,12 +195,43 @@ US_BANK_CSS = """
         color: #0A2640 !important;
     }
 
+    /* ============================
+       SELECT BOXES & INPUTS
+       ============================ */
+
+    /* Main area selects: white background, navy text */
+    .block-container div[data-baseweb="select"] > div {
+        background-color: #FFFFFF !important;
+        color: #0A2640 !important;
+        border-radius: 8px !important;
+    }
+
+    .block-container div[data-baseweb="select"] input {
+        color: #0A2640 !important;
+    }
+
+    .block-container input,
+    .block-container textarea {
+        background-color: #FFFFFF !important;
+        color: #0A2640 !important;
+    }
+
+    /* ============================
+       CHART BACKGROUNDS
+       ============================ */
+
+    div[data-testid="stChart"] {
+        background-color: #FFFFFF !important;
+        border-radius: 12px !important;
+        padding: 0.75rem !important;
+    }
+
 </style>
 """
 st.markdown(US_BANK_CSS, unsafe_allow_html=True)
 
 # -----------------------------------------------------------------------------
-# Banner helpers (bright blue + red pills)
+# Banner helper (bright blue pill)
 # -----------------------------------------------------------------------------
 def blue_banner(message: str):
     st.markdown(
@@ -195,27 +246,6 @@ def blue_banner(message: str):
             font-weight: 500;
             text-align: center;
             box-shadow: 0 12px 30px rgba(0, 86, 179, 0.35);
-        ">
-            {message}
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-
-def red_banner(message: str):
-    st.markdown(
-        f"""
-        <div style="
-            margin-top: 0.75rem;
-            margin-bottom: 0.75rem;
-            padding: 0.9rem 1.2rem;
-            border-radius: 999px;
-            background: #D00000;
-            color: #FFFFFF;
-            font-weight: 500;
-            text-align: center;
-            box-shadow: 0 12px 30px rgba(208, 0, 0, 0.35);
         ">
             {message}
         </div>
@@ -247,10 +277,6 @@ This app simulates a **large fictional bank transaction dataset** and runs it th
 def baseline_rules_score_account(events: pd.DataFrame, typology: str) -> float:
     """
     Deliberately simple account-level rules score.
-
-    Idea:
-    - Count "obvious" red flags per typology and combine them.
-    - This is roughly what a naive/baseline rules engine might do.
     """
     g = events
     n = len(g)
@@ -480,7 +506,7 @@ if score_df is not None and not score_df.empty and "rules_score" not in score_df
 # -----------------------------------------------------------------------------
 if view_mode == "QID Rankings & Drilldown":
     if score_df is None or score_df.empty:
-        red_banner("Run QID Scoring from the sidebar to populate results.")
+        blue_banner("Run QID Scoring from the sidebar to populate results.")
     else:
         # Section: QID-ranked accounts (grey card)
         st.markdown('<div class="us-section us-section-grey">', unsafe_allow_html=True)
@@ -496,9 +522,10 @@ if view_mode == "QID Rankings & Drilldown":
         top_accounts = score_df.head(top_k)
 
         labeled = int(top_accounts["label_fraud"].sum())
-        st.write(
+        st.markdown(
             f"Among the top **{top_k}** accounts by **QID score**, **{labeled}** have injected suspicious activity "
-            f"(`label_fraud = 1`) in this fictional dataset."
+            f'(<span class="fraud-pill">Label_fraud = 1</span>) in this fictional dataset.',
+            unsafe_allow_html=True,
         )
 
         st.dataframe(top_accounts)
@@ -595,7 +622,7 @@ if view_mode == "QID Rankings & Drilldown":
 # -----------------------------------------------------------------------------
 elif view_mode == "QID vs Baseline Rules":
     if score_df is None or score_df.empty:
-        red_banner("Run QID Scoring from the sidebar to compare QID vs Baseline Rules.")
+        blue_banner("Run QID Scoring from the sidebar to compare QID vs Baseline Rules.")
     else:
         # Section: Scatter + Precision@K (grey card)
         st.markdown('<div class="us-section us-section-grey">', unsafe_allow_html=True)
