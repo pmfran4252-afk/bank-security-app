@@ -76,6 +76,18 @@ US_BANK_CSS = """
         padding-left: 8px !important;
         border-radius: 4px !important;
     }
+    /* Bright blue for labels in light mode */
+    .block-container label {
+    color: #0056B3 !important;
+    font-weight: 600 !important;
+    }
+
+    /* Slider min/max number color fix */
+    .stSlider label, 
+    .stSlider div, 
+    .stSlider input {
+    color: #FFFFFF !important;
+    }
 
     /* ============================
        MAIN PAGE BACKGROUND + TEXT
@@ -92,6 +104,13 @@ US_BANK_CSS = """
     }
     [data-testid="stHeader"] * {
         color: #FFFFFF !important;
+    }
+    /* Remove mysterious empty white box under banners */
+    .element-container:has(> div:empty) {
+    display: none !important;
+    height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
     }
 
     /* Default text color in main area */
@@ -115,6 +134,16 @@ US_BANK_CSS = """
     h1, h2, h3, h4 {
         color: #0A2640 !important;  /* U.S. Bank Navy */
         font-weight: 700 !important;
+    }
+
+    .fraud-pill {
+    display: inline-block;
+    padding: 0.15rem 0.6rem;
+    border-radius: 999px;
+    background: #0056B3;
+    color: #FFFFFF !important;   /* FORCE white text */
+    font-size: 0.8rem;
+    font-weight: 700;
     }
 
     /* Metric numbers bright blue */
