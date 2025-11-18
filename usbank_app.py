@@ -821,3 +821,24 @@ Interpretation:
             st.dataframe(rules_high_qid_low)
 
         st.markdown('</div>', unsafe_allow_html=True)
+
+# -----------------------------------------------------------------------------
+# Footer (Confidentiality Notice)
+# -----------------------------------------------------------------------------
+st.markdown(
+    """
+    <div style="
+        margin-top: 4rem;
+        padding: 2rem 0;
+        text-align: center;
+        font-size: 0.85rem;
+        color: #0A2640;
+        opacity: 0.65;
+    ">
+        CONFIDENTIAL & PROPRIETARY © 2025 LeanQID, LLC. All rights reserved.<br>
+        This application contains confidential & proprietary information. It may not be reproduced,
+        distributed, or discussed without express written permission.
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
