@@ -49,6 +49,21 @@ US_BANK_CSS = """
     .st-emotion-cache-111apq {
     opacity: 1 !important;
     }
+    /* Primary buttons in main content: blue background, white text */
+    .block-container .stButton > button {
+    background-color: #0056B3 !important;  /* same bright blue */
+    color: #FFFFFF !important;             /* FORCE white text */
+    border-radius: 6px !important;
+    border: 1px solid #0072CE !important;
+    font-weight: 500 !important;
+    }
+
+    /* Hover state for main buttons */
+    .block-container .stButton > button:hover {
+    background-color: #0072CE !important;
+    color: #FFFFFF !important;
+    border-color: #FFFFFF !important;
+    }
     .st-emotion-cache-17k2yau{
     color: #ffffff !important; 
     }
