@@ -155,7 +155,6 @@ max_accounts_to_score = st.sidebar.slider(
     "Max accounts to score (for speed)", 1000, 10000, 5000, step=500
 )
 
-generate_btn = st.sidebar.button("Generate / Regenerate Synthetic Dataset")
 
 typology = st.sidebar.selectbox(
     "QID Typology Mask",
@@ -190,6 +189,12 @@ view_mode = st.sidebar.radio(
     ["QID Rankings & Drilldown", "QID vs Baseline Rules"],
     index=0,
 )
+
+# Bottom-of-sidebar controls
+with st.sidebar.expander("⚙️ Advanced: Dataset Controls", expanded=False):
+    generate_btn = st.button("Generate / Regenerate Synthetic Dataset")
+
+run_qid_btn = st.sidebar.button("Run QID Scoring with Current Mask")
 
 # -----------------------------------------------------------------------------
 # Generate dataset
