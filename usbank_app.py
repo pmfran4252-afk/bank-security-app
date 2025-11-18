@@ -46,6 +46,9 @@ US_BANK_CSS = """
     .st-emotion-cache-111apq {
     opacity: 1 !important;
     }
+    .st-emotion-cache-17k2yau{
+    color: #ffffff !important; 
+    }
     [data-testid="stSidebar"] .stSlider div[data-baseweb="slider"] span {
     color: #FFFFFF !important;
     }
