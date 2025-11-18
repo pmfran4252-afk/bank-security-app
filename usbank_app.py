@@ -40,11 +40,16 @@ US_BANK_CSS = """
         background-color: #0A2640 !important;  /* Dark navy */
         color: #FFFFFF !important;
     }
-    
-    [data-testid="stSidebar"] .stSlider div[data-baseweb="slider"] span {
+    .stSlider div[data-baseweb="slider"] span {
     color: #FFFFFF !important;
     }
 
+    [data-testid="stSidebar"] .stSlider div[data-baseweb="slider"] span {
+    color: #FFFFFF !important;
+    }
+    .st-emotion-cache-uujwi5 p {
+    color: #ffffff !important;
+    }
     [data-testid="stSidebar"] button {
         background-color: #0056B3 !important;  /* Primary blue */
         color: #FFFFFF !important;
