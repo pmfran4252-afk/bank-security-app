@@ -118,6 +118,8 @@ US_BANK_CSS = """
     /* Top header bar (Share / star / GitHub) */
     [data-testid="stHeader"] {
         background-color: #0A2640 !important;  /* match sidebar */
+        color: #ffffff !important;
+        fill: white !important;
     }
     [data-testid="stHeader"] * {
         color: #FFFFFF !important;
@@ -868,3 +870,4 @@ st.markdown(
     """,
     unsafe_allow_html=True,
 )
+
