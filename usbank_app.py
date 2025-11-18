@@ -40,6 +40,9 @@ US_BANK_CSS = """
         background-color: #0A2640 !important;  /* Dark navy */
         color: #FFFFFF !important;
     }
+    [data-testid="stHeader"] [data-testid="stToolbar"] svg {
+    fill: white !important;
+    }
     .stSlider div[data-baseweb="slider"] span {
     color: #FFFFFF !important;
     }
