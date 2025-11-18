@@ -43,7 +43,9 @@ US_BANK_CSS = """
     .stSlider div[data-baseweb="slider"] span {
     color: #FFFFFF !important;
     }
-
+    .st-emotion-cache-111apq {
+    opacity: 1 !important;
+    }
     [data-testid="stSidebar"] .stSlider div[data-baseweb="slider"] span {
     color: #FFFFFF !important;
     }
@@ -86,7 +88,9 @@ US_BANK_CSS = """
     color: #0056B3 !important;
     font-weight: 600 !important;
     }
-
+    .st-emotion-cache-pd6qx2{
+    color: #ffffff !important;
+    }
     /* Slider min/max number color fix */
     .stSlider label, 
     .stSlider div, 
