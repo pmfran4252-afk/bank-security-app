@@ -178,6 +178,7 @@ US_BANK_CSS = """
         padding: 1.75rem 1.75rem 1.5rem 1.75rem;
         margin-bottom: 2rem;
         box-shadow: 0 20px 40px rgba(10, 38, 64, 0.06);
+        display: none !important;
     }
 
     .us-section-white {
@@ -187,6 +188,7 @@ US_BANK_CSS = """
 
     .us-section-grey {
         background-color: #F5F7FA !important; /* Light grey */
+        display: none !important;
     }
 
     /* Accent text (for hints / explanations) */
@@ -218,26 +220,26 @@ US_BANK_CSS = """
     /* st.dataframe */
     div[data-testid="stDataFrame"] {
         background-color: #FFFFFF !important;
-        color: #0A2640 !important;
+        color: #0A2640;
     }
     div[data-testid="stDataFrame"] table {
         background-color: #FFFFFF !important;
-        color: #0A2640 !important;
+        color: #0A2640;
     }
     div[data-testid="stDataFrame"] tbody tr td {
         background-color: #FFFFFF !important;
-        color: #0A2640 !important;
+        color: #0A2640;
     }
 
     /* st.table */
     div[data-testid="stTable"] {
         background-color: #FFFFFF !important;
-        color: #0A2640 !important;
+        color: #0A2640;
     }
     div[data-testid="stTable"] table,
     div[data-testid="stTable"] tbody tr td {
         background-color: #FFFFFF !important;
-        color: #0A2640 !important;
+        color: #0A2640;
     }
 
     /* ============================
@@ -247,18 +249,18 @@ US_BANK_CSS = """
     /* Main area selects: white background, navy text */
     .block-container div[data-baseweb="select"] > div {
         background-color: #FFFFFF !important;
-        color: #0A2640 !important;
+        color: #0A2640;
         border-radius: 8px !important;
     }
 
     .block-container div[data-baseweb="select"] input {
-        color: #0A2640 !important;
+        color: #0A2640;
     }
 
     .block-container input,
     .block-container textarea {
         background-color: #FFFFFF !important;
-        color: #0A2640 !important;
+        color: #0A2640;
     }
 
     /* ============================
@@ -287,7 +289,7 @@ def blue_banner(message: str):
             padding: 0.9rem 1.2rem;
             border-radius: 999px;
             background: #0056B3;
-            color: #FFFFFF;
+            color: #FFFFFF !important;
             font-weight: 500;
             text-align: center;
             box-shadow: 0 12px 30px rgba(0, 86, 179, 0.35);
