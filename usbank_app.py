@@ -192,9 +192,15 @@ view_mode = st.sidebar.radio(
 
 # Bottom-of-sidebar controls
 with st.sidebar.expander("⚙️ Advanced: Dataset Controls", expanded=False):
-    generate_btn = st.button("Generate / Regenerate Synthetic Dataset")
+    generate_btn = st.button(
+        "Generate / Regenerate Synthetic Dataset",
+        key="btn_generate_dataset",
+    )
 
-run_qid_btn = st.sidebar.button("Run QID Scoring with Current Mask")
+run_qid_btn = st.sidebar.button(
+    "Run QID Scoring with Current Mask",
+    key="btn_run_qid",
+)
 
 # -----------------------------------------------------------------------------
 # Generate dataset
