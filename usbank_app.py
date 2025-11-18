@@ -531,7 +531,7 @@ st.markdown('</div>', unsafe_allow_html=True)
 # -----------------------------------------------------------------------------
 # Run QID scoring
 # -----------------------------------------------------------------------------
-<div style="color: #ffffff;">
+
 if run_qid_btn:
     with st.spinner("Running QID scoring & pruning..."):
         amp_mask = get_security_mask(
@@ -545,10 +545,10 @@ if run_qid_btn:
             max_accounts=max_accounts_to_score,
         )
         st.session_state["scores"] = score_df
-    blue_banner("QID scoring complete.")
+    blue_banner("<span style="color:#ffffff;">QID scoring complete.</span>")
 
 score_df = st.session_state.get("scores")
-</div>
+
 # If we have scores, ensure baseline rules score is computed; else just keep None.
 if score_df is not None and not score_df.empty and "rules_score" not in score_df.columns:
     grouped = df.groupby("account_id", sort=False)
