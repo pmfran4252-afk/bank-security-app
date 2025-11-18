@@ -287,9 +287,9 @@ def blue_banner(message: str):
 # -----------------------------------------------------------------------------
 # Title & intro
 # -----------------------------------------------------------------------------
-<div style="margin-top:40px;">
+
 st.title("QID Bank Security Interference Demo")
-</div>
+
 
 st.markdown(
     """
