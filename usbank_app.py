@@ -135,11 +135,11 @@ US_BANK_CSS = """
     .block-container span,
     .markdown-text-container,
     .markdown-text-container p {
-        color: #0A2640 !important;  /* Navy text */
+        color: #0A2640;  /* Navy text */
     }
 
     .block-container {
-        background-color: #EDF2F7 !important;
+        background-color: #EDF2F7;
         padding-top: 2rem !important;
         padding-bottom: 2rem !important;
     }
@@ -407,7 +407,7 @@ if os.path.exists(svg_path):
     st.sidebar.markdown(
         f"""
         <div style="text-align: center; margin-bottom: 50px;">
-            <img src="data:image/svg+xml;base64,{svg_b64}" style="width: 180px;"/>
+            <img src="data:image/svg+xml;base64,{svg_b64}" style="width: 240px;"/>
         </div>
         """,
         unsafe_allow_html=True,
