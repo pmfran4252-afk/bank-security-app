@@ -137,7 +137,10 @@ US_BANK_CSS = """
         color: #0A2640 !important;  /* U.S. Bank Navy */
         font-weight: 700 !important;
     }
-
+    .st-emotion-cache-ua1rfn h1 {
+    margin-top: 40px !important; 
+    }
+    
     .fraud-pill {
     display: inline-block;
     padding: 0.15rem 0.6rem;
@@ -169,6 +172,7 @@ US_BANK_CSS = """
 
     .us-section-white {
         background-color: #FFFFFF !important;
+        display: none !important;
     }
 
     .us-section-grey {
