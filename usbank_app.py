@@ -15,10 +15,9 @@ from qid_security import (
     generate_synthetic_transactions,
     SecurityInterferenceEncoder,
     SecurityPruner,
-    CHANNELS,
+    CHANNELS,  # harmless if unused
 )
 from qid_security.amplitude_masks_security import get_security_mask
-
 
 # -----------------------------------------------------------------------------
 # Streamlit page config
@@ -28,89 +27,96 @@ st.set_page_config(
     layout="wide",
 )
 
-# ---- U.S. Bank Theme Injection ----
+# -----------------------------------------------------------------------------
+# U.S. Bank–style theme (CSS injection)
+# -----------------------------------------------------------------------------
 US_BANK_CSS = """
 <style>
-
-    /* -------- Sidebar Background -------- */
+    /* -------- Sidebar -------- */
     [data-testid="stSidebar"] {
-        background-color: #0A2640 !important;  /* Dark Navy */
+        background-color: #0A2640 !important;  /* Dark navy */
         color: #FFFFFF !important;
     }
-
-    /* Make all sidebar text white */
     [data-testid="stSidebar"] * {
         color: #FFFFFF !important;
     }
 
-    /* -------- Sidebar Buttons -------- */
     [data-testid="stSidebar"] button {
-        background-color: #0056B3 !important;  /* Primary Blue */
+        background-color: #0056B3 !important;  /* Primary blue */
         color: #FFFFFF !important;
         border-radius: 6px !important;
         border: 1px solid #0072CE !important;
         padding: 0.4rem 0.75rem !important;
+        font-weight: 500 !important;
     }
-
     [data-testid="stSidebar"] button:hover {
-        background-color: #0072CE !important;  /* Hover blue */
-        color: white !important;
+        background-color: #0072CE !important;
+        color: #FFFFFF !important;
         border-color: #FFFFFF !important;
     }
 
-    /* -------- Sidebar Selectboxes & Sliders -------- */
-    [data-testid="stSidebar"] select, 
-    [data-testid="stSidebar"] input, 
-    [data-testid="stSidebar"] .stSlider,
-    [data-testid="stSidebar"] .stMultiSelect {
-        color: #FFFFFF !important;
-    }
-
-    /* Slider color */
+    /* Sidebar sliders */
     .stSlider > div > div > div > div {
         background: #0072CE !important;
     }
-
-    /* Slider thumb */
     .stSlider > div > div > div:nth-child(3) > div {
         background: #0056B3 !important;
         border: 2px solid #FFFFFF !important;
     }
 
-    /* Radio button highlight */
+    /* Sidebar radio highlight */
     .stRadio > label > div[role='radiogroup'] > div[aria-checked='true'] {
         color: #FFFFFF !important;
-        background-color: #0072CE20 !important; 
+        background-color: #0072CE20 !important;
         border-left: 3px solid #0072CE !important;
         padding-left: 8px !important;
         border-radius: 4px !important;
     }
 
-    /* -------- Main page adjustments (optional but nice) -------- */
+    /* -------- Main page background -------- */
     .main > div {
-        background-color: #F5F7FA !important; /* Off-white bg */
+        background-color: #EDF2FF !important;  /* soft bluish grey */
     }
 
     .block-container {
         padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
     }
 
-    /* Headers styling */
+    /* Headings */
     h1, h2, h3, h4 {
-        color: #0A2640 !important; 
+        color: #0A2640 !important;
         font-weight: 700 !important;
     }
 
-    /* Tables with subtle border */
-    table {
-        border: 1px solid #D6DCE5 !important;
-        border-radius: 8px !important;
+    /* -------- Section cards -------- */
+    .us-section {
+        border-radius: 18px;
+        padding: 1.75rem 1.75rem 1.5rem 1.75rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 18px 40px rgba(10, 38, 64, 0.06);
     }
 
+    .us-section-white {
+        background-color: #FFFFFF;
+    }
+
+    .us-section-grey {
+        background-color: #F5F7FA;
+    }
+
+    /* Accent text */
+    .us-accent {
+        color: #0056B3 !important;
+        font-weight: 600;
+    }
 </style>
 """
 st.markdown(US_BANK_CSS, unsafe_allow_html=True)
 
+# -----------------------------------------------------------------------------
+# Title & intro
+# -----------------------------------------------------------------------------
 st.title("QID Bank Security Interference Demo")
 
 st.markdown(
@@ -238,7 +244,6 @@ max_accounts_to_score = st.sidebar.slider(
     "Max accounts to score (for speed)", 1000, 10000, 5000, step=500
 )
 
-
 typology = st.sidebar.selectbox(
     "QID Typology Mask",
     [
@@ -264,16 +269,7 @@ high_risk_countries = st.sidebar.multiselect(
     default=["MX", "BR", "CN", "RU", "NG"],
 )
 
-run_qid_btn = st.sidebar.button("Run QID Scoring with Current Mask")
-
-# Bottom-of-sidebar view toggle
-view_mode = st.sidebar.radio(
-    "Main view",
-    ["QID Rankings & Drilldown", "QID vs Baseline Rules"],
-    index=0,
-)
-
-# Bottom-of-sidebar controls
+# Put dataset generation in an expander at bottom of sidebar
 with st.sidebar.expander("⚙️ Advanced: Dataset Controls", expanded=False):
     generate_btn = st.button(
         "Generate / Regenerate Synthetic Dataset",
@@ -283,6 +279,13 @@ with st.sidebar.expander("⚙️ Advanced: Dataset Controls", expanded=False):
 run_qid_btn = st.sidebar.button(
     "Run QID Scoring with Current Mask",
     key="btn_run_qid",
+)
+
+# Bottom-of-sidebar view toggle
+view_mode = st.sidebar.radio(
+    "Main view",
+    ["QID Rankings & Drilldown", "QID vs Baseline Rules"],
+    index=0,
 )
 
 # -----------------------------------------------------------------------------
@@ -307,8 +310,10 @@ if df is None:
     st.stop()
 
 # -----------------------------------------------------------------------------
-# Dataset overview
+# Dataset overview section (white card)
 # -----------------------------------------------------------------------------
+st.markdown('<div class="us-section us-section-white">', unsafe_allow_html=True)
+
 st.subheader("Dataset Overview")
 
 col1, col2, col3, col4 = st.columns(4)
@@ -326,6 +331,8 @@ st.markdown(
     "Use the sidebar to select a **QID typology mask** and then click "
     "**Run QID Scoring** to rank accounts by masked interference score."
 )
+
+st.markdown('</div>', unsafe_allow_html=True)
 
 # -----------------------------------------------------------------------------
 # Run QID scoring
@@ -366,6 +373,9 @@ if view_mode == "QID Rankings & Drilldown":
     if score_df is None or score_df.empty:
         st.info("Run **QID Scoring** from the sidebar to populate results.")
     else:
+        # Section: QID-ranked accounts (grey card)
+        st.markdown('<div class="us-section us-section-grey">', unsafe_allow_html=True)
+
         st.subheader("QID-Ranked Accounts (Top Suspicious Entities Under Current Mask)")
 
         st.caption(
@@ -384,7 +394,11 @@ if view_mode == "QID Rankings & Drilldown":
 
         st.dataframe(top_accounts)
 
-        # Account drilldown
+        st.markdown('</div>', unsafe_allow_html=True)
+
+        # Section: Account drilldown + explanation + signature (white card)
+        st.markdown('<div class="us-section us-section-white">', unsafe_allow_html=True)
+
         st.markdown("### Account-level Drilldown")
 
         selected_account_id = st.selectbox(
@@ -425,9 +439,7 @@ if view_mode == "QID Rankings & Drilldown":
         ].head(200)
         st.dataframe(acc_head)
 
-        # --------------------------
         # Transaction-level QID reason explorer
-        # --------------------------
         st.markdown("### Transaction-level QID Explanation")
 
         txn_choice = st.selectbox(
@@ -467,6 +479,8 @@ if view_mode == "QID Rankings & Drilldown":
         )
         st.bar_chart(sig_df.set_index("component"))
 
+        st.markdown('</div>', unsafe_allow_html=True)
+
 # -----------------------------------------------------------------------------
 # View: QID vs Baseline Rules
 # -----------------------------------------------------------------------------
@@ -474,6 +488,9 @@ elif view_mode == "QID vs Baseline Rules":
     if score_df is None or score_df.empty:
         st.info("Run **QID Scoring** from the sidebar to compare QID vs Baseline Rules.")
     else:
+        # Section: Scatter + Precision@K (grey card)
+        st.markdown('<div class="us-section us-section-grey">', unsafe_allow_html=True)
+
         st.subheader("QID vs Baseline Rules Scoring")
 
         st.markdown(
@@ -535,6 +552,11 @@ You can see how often QID and baseline rules **agree** and where they **disagree
         )
 
         st.dataframe(summary_df)
+
+        st.markdown('</div>', unsafe_allow_html=True)
+
+        # Section: Agreement + Disagreement (white card)
+        st.markdown('<div class="us-section us-section-white">', unsafe_allow_html=True)
 
         # Agreement matrix (2x2)
         st.markdown("#### Agreement Matrix (QID High/Low × Baseline High/Low)")
@@ -633,3 +655,4 @@ Interpretation:
             )
             st.dataframe(rules_high_qid_low)
 
+        st.markdown('</div>', unsafe_allow_html=True)
