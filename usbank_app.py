@@ -45,7 +45,6 @@ US_BANK_CSS = """
         color: #FFFFFF !important;
     }
 
-    /* Sidebar buttons */
     [data-testid="stSidebar"] button {
         background-color: #0056B3 !important;  /* Primary blue */
         color: #FFFFFF !important;
@@ -54,6 +53,7 @@ US_BANK_CSS = """
         padding: 0.4rem 0.75rem !important;
         font-weight: 500 !important;
     }
+
     [data-testid="stSidebar"] button:hover {
         background-color: #0072CE !important;
         border-color: #FFFFFF !important;
@@ -63,27 +63,58 @@ US_BANK_CSS = """
     .stSlider > div > div > div > div {
         background: #0072CE !important;
     }
+    .stSlider > div > div > div:nth-child(3) > div {
+        background: #0056B3 !important;
+        border: 2px solid #FFFFFF !important;
+    }
+
+    /* Sidebar radio highlight */
+    .stRadio > label > div[role='radiogroup'] > div[aria-checked='true'] {
+        color: #FFFFFF !important;
+        background-color: #0072CE20 !important;
+        border-left: 3px solid #0072CE !important;
+        padding-left: 8px !important;
+        border-radius: 4px !important;
+    }
 
     /* ============================
-       MAIN PAGE BACKGROUND FIX
+       MAIN PAGE BACKGROUND + TEXT
        ============================ */
 
-    /* These selectors MUST target Streamlit’s actual layout structure */
     html, body, [data-testid="stAppViewContainer"], [data-testid="stMain"] {
-        background-color: #EDF2F7 !important;  /* Soft US Bank icy blue-grey */
+        background-color: #EDF2F7 !important;  /* Soft bluish grey */
         background-image: none !important;
     }
 
-    /* Remove Streamlit dark mode influences */
-    body {
-        color: #0A2640 !important;
+    /* Top header bar (Share / star / GitHub) */
+    [data-testid="stHeader"] {
+        background-color: #0A2640 !important;  /* match sidebar */
+    }
+    [data-testid="stHeader"] * {
+        color: #FFFFFF !important;
     }
 
-    /* Main block-container background */
+    /* Default text color in main area */
+    body,
+    .block-container,
+    .block-container p,
+    .block-container li,
+    .block-container span,
+    .markdown-text-container,
+    .markdown-text-container p {
+        color: #0A2640 !important;  /* Navy text */
+    }
+
     .block-container {
         background-color: #EDF2F7 !important;
         padding-top: 2rem !important;
         padding-bottom: 2rem !important;
+    }
+
+    /* Headings */
+    h1, h2, h3, h4 {
+        color: #0A2640 !important;  /* U.S. Bank Navy */
+        font-weight: 700 !important;
     }
 
     /* ============================
@@ -101,32 +132,96 @@ US_BANK_CSS = """
     }
 
     .us-section-grey {
-        background-color: #F5F7FA !important; /* Light US Bank grey */
+        background-color: #F5F7FA !important; /* Light grey */
     }
 
-    /* ============================
-       TYPOGRAPHY
-       ============================ */
-    h1, h2, h3, h4 {
-        color: #0A2640 !important;  /* US Bank Navy */
-        font-weight: 700 !important;
-    }
-
-    /* Accent text (links/highlights) */
+    /* Accent text (for hints / explanations) */
     .us-accent {
-        color: #0056B3 !important;  /* US Bank Bright Blue */
+        color: #0056B3 !important;  /* Bright blue */
         font-weight: 600;
     }
 
-    /* Fraud red accents */
     .fraud-flag {
-        color: #D00000 !important; /* US Bank Red */
+        color: #D00000 !important;  /* Brand red */
         font-weight: 700;
+    }
+
+    /* ============================
+       TABLES / DATAFRAMES
+       ============================ */
+
+    /* st.dataframe */
+    div[data-testid="stDataFrame"] {
+        background-color: #FFFFFF !important;
+        color: #0A2640 !important;
+    }
+    div[data-testid="stDataFrame"] table {
+        background-color: #FFFFFF !important;
+        color: #0A2640 !important;
+    }
+    div[data-testid="stDataFrame"] tbody tr td {
+        background-color: #FFFFFF !important;
+        color: #0A2640 !important;
+    }
+
+    /* st.table */
+    div[data-testid="stTable"] {
+        background-color: #FFFFFF !important;
+        color: #0A2640 !important;
+    }
+    div[data-testid="stTable"] table,
+    div[data-testid="stTable"] tbody tr td {
+        background-color: #FFFFFF !important;
+        color: #0A2640 !important;
     }
 
 </style>
 """
 st.markdown(US_BANK_CSS, unsafe_allow_html=True)
+
+# -----------------------------------------------------------------------------
+# Banner helpers (bright blue + red pills)
+# -----------------------------------------------------------------------------
+def blue_banner(message: str):
+    st.markdown(
+        f"""
+        <div style="
+            margin-top: 0.75rem;
+            margin-bottom: 0.75rem;
+            padding: 0.9rem 1.2rem;
+            border-radius: 999px;
+            background: #0056B3;
+            color: #FFFFFF;
+            font-weight: 500;
+            text-align: center;
+            box-shadow: 0 12px 30px rgba(0, 86, 179, 0.35);
+        ">
+            {message}
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
+def red_banner(message: str):
+    st.markdown(
+        f"""
+        <div style="
+            margin-top: 0.75rem;
+            margin-bottom: 0.75rem;
+            padding: 0.9rem 1.2rem;
+            border-radius: 999px;
+            background: #D00000;
+            color: #FFFFFF;
+            font-weight: 500;
+            text-align: center;
+            box-shadow: 0 12px 30px rgba(208, 0, 0, 0.35);
+        ">
+            {message}
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
 # -----------------------------------------------------------------------------
 # Title & intro
@@ -149,8 +244,6 @@ This app simulates a **large fictional bank transaction dataset** and runs it th
 # -----------------------------------------------------------------------------
 # Baseline rules score: simple, explainable rule-based risk per account
 # -----------------------------------------------------------------------------
-
-
 def baseline_rules_score_account(events: pd.DataFrame, typology: str) -> float:
     """
     Deliberately simple account-level rules score.
@@ -316,7 +409,9 @@ if generate_btn or (st.session_state["df"] is None):
         )
         st.session_state["df"] = df
         st.session_state["scores"] = None
-    st.success(f"Generated dataset with {len(df):,} transactions for {n_accounts:,} accounts.")
+    blue_banner(
+        f"Generated dataset with {len(df):,} transactions for {n_accounts:,} accounts."
+    )
 
 df = st.session_state["df"]
 
@@ -364,7 +459,7 @@ if run_qid_btn:
             max_accounts=max_accounts_to_score,
         )
         st.session_state["scores"] = score_df
-    st.success("QID scoring complete.")
+    blue_banner("QID scoring complete.")
 
 score_df = st.session_state.get("scores")
 
@@ -385,7 +480,7 @@ if score_df is not None and not score_df.empty and "rules_score" not in score_df
 # -----------------------------------------------------------------------------
 if view_mode == "QID Rankings & Drilldown":
     if score_df is None or score_df.empty:
-        st.info("Run **QID Scoring** from the sidebar to populate results.")
+        red_banner("Run QID Scoring from the sidebar to populate results.")
     else:
         # Section: QID-ranked accounts (grey card)
         st.markdown('<div class="us-section us-section-grey">', unsafe_allow_html=True)
@@ -500,7 +595,7 @@ if view_mode == "QID Rankings & Drilldown":
 # -----------------------------------------------------------------------------
 elif view_mode == "QID vs Baseline Rules":
     if score_df is None or score_df.empty:
-        st.info("Run **QID Scoring** from the sidebar to compare QID vs Baseline Rules.")
+        red_banner("Run QID Scoring from the sidebar to compare QID vs Baseline Rules.")
     else:
         # Section: Scatter + Precision@K (grey card)
         st.markdown('<div class="us-section us-section-grey">', unsafe_allow_html=True)
