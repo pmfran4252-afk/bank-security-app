@@ -837,10 +837,8 @@ Accounts where:
 - QID score is low (bottom 50%).
 
 Interpretation:
-- These are classic **rule-noise cases**: large amounts, cross-border, or new device,
-  but the overall behaviour pattern is benign.
-- QID can be used to **down-rank** these to reduce analyst workload without
-  sacrificing true fraud coverage.
+- These are classic: large amounts, cross-border, or new device, overall behaviour pattern is benign.
+- QID can be used to **down-rank** - reduce analyst workload without sacrificing true fraud coverage.
 """
             )
             st.dataframe(rules_high_qid_low)
